@@ -58,6 +58,9 @@ manager
 [squid:children]
 manager
 
+[substation:children]
+manager
+
 [teleport:children]
 manager
 
