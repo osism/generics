@@ -8,7 +8,7 @@ manager
 generic
 
 [opentelemetry_collector:children]
-manager
+monitoring
 
 [prometheus_pushgateway:children]
 monitoring
