@@ -4,6 +4,9 @@
 [gnmic:children]
 manager
 
+[kepler:children]
+generic
+
 [netdata:children]
 generic
 
