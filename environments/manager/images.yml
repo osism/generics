@@ -5,13 +5,13 @@ adminer_tag: "{{ versions['adminer'] }}"
 adminer_image: "{{ '{{' }} docker_registry {{ '}}' }}/{{ images['adminer'] }}:{{ '{{' }} adminer_tag {{ '}}' }}"
 
 ara_server_tag: "{{ versions['ara_server'] }}"
-ara_server_image: "{{ '{{' }} docker_registry_ansible|default('quay.io') {{ '}}' }}/{{ images['ara_server'] }}:{{ '{{' }} ara_server_tag {{ '}}' }}"
+ara_server_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['ara_server'] }}:{{ '{{' }} ara_server_tag {{ '}}' }}"
 
 ara_server_mariadb_tag: "{{ versions['mariadb'] }}"
 ara_server_mariadb_image: "{{ '{{' }} docker_registry {{ '}}' }}/{{ images['mariadb'] }}:{{ '{{' }} ara_server_mariadb_tag {{ '}}' }}"
 
 netbox_tag: "{{ versions['netbox'] }}"
-netbox_image: "{{ '{{' }} docker_registry_netbox|default('quay.io') {{ '}}' }}/{{ images['netbox'] }}:{{ '{{' }} netbox_tag {{ '}}' }}"
+netbox_image: "{{ '{{' }} docker_registry_netbox|default('registry.osism.tech') {{ '}}' }}/{{ images['netbox'] }}:{{ '{{' }} netbox_tag {{ '}}' }}"
 
 netbox_redis_tag: "{{ versions['redis'] }}"
 netbox_redis_image: "{{ '{{' }} docker_registry {{ '}}' }}/{{ images['redis'] }}:{{ '{{' }} netbox_redis_tag {{ '}}' }}"
@@ -39,42 +39,42 @@ osism_ansible_tag: "{{ '{{' }} osism_ansible_version|default('latest') {{ '}}' }
 {% else -%}
 osism_ansible_tag: "{{ versions['osism_ansible'] }}"
 {% endif -%}
-osism_ansible_image: "{{ '{{' }} docker_registry_ansible|default('quay.io') {{ '}}' }}/{{ images['osism_ansible'] }}:{{ '{{' }} osism_ansible_tag {{ '}}' }}"
+osism_ansible_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_ansible'] }}:{{ '{{' }} osism_ansible_tag {{ '}}' }}"
 
 {% if versions['osism_kubernetes'] == 'latest' -%}
 osism_kubernetes_tag: "{{ '{{' }} osism_kubernetes_version|default('latest') {{ '}}' }}"
 {% else -%}
 osism_kubernetes_tag: "{{ versions['osism_kubernetes'] }}"
 {% endif -%}
-osism_kubernetes_image: "{{ '{{' }} docker_registry_ansible|default('quay.io') {{ '}}' }}/{{ images['osism_kubernetes'] }}:{{ '{{' }} osism_kubernetes_tag {{ '}}' }}"
+osism_kubernetes_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_kubernetes'] }}:{{ '{{' }} osism_kubernetes_tag {{ '}}' }}"
 
 {% if versions['inventory_reconciler'] == 'latest' -%}
 inventory_reconciler_tag: "{{ '{{' }} inventory_reconciler_version|default('latest') {{ '}}' }}"
 {% else -%}
 inventory_reconciler_tag: "{{ versions['inventory_reconciler'] }}"
 {% endif -%}
-inventory_reconciler_image: "{{ '{{' }} docker_registry_ansible {{ '}}' }}/{{ images['inventory_reconciler'] }}:{{ '{{' }} inventory_reconciler_tag {{ '}}' }}"
+inventory_reconciler_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['inventory_reconciler'] }}:{{ '{{' }} inventory_reconciler_tag {{ '}}' }}"
 
 {% if versions['osism'] == 'latest' -%}
 osism_tag: "{{ '{{' }} osism_version|default('latest') {{ '}}' }}"
 {% else -%}
 osism_tag: "{{ versions['osism'] }}"
 {% endif -%}
-osism_image: "{{ '{{' }} docker_registry_ansible {{ '}}' }}/{{ images['osism'] }}:{{ '{{' }} osism_tag {{ '}}' }}"
+osism_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism'] }}:{{ '{{' }} osism_tag {{ '}}' }}"
 
 {% if versions['osism'] == 'latest' -%}
 osism_frontend_tag: "{{ '{{' }} osism_version|default('latest') {{ '}}' }}"
 {% else -%}
 osism_frontend_tag: "{{ versions['osism'] }}"
 {% endif -%}
-osism_frontend_image: "{{ '{{' }} docker_registry_ansible {{ '}}' }}/{{ images['osism_frontend'] }}:{{ '{{' }} osism_frontend_tag {{ '}}' }}"
+osism_frontend_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_frontend'] }}:{{ '{{' }} osism_frontend_tag {{ '}}' }}"
 
 {% if versions['osism'] == 'latest' -%}
 osism_netbox_tag: "{{ '{{' }} osism_version|default('latest') {{ '}}' }}"
 {% else -%}
 osism_netbox_tag: "{{ versions['osism'] }}"
 {% endif -%}
-osism_netbox_image: "{{ '{{' }} docker_registry_ansible {{ '}}' }}/{{ images['osism_netbox'] }}:{{ '{{' }} osism_netbox_tag {{ '}}' }}"
+osism_netbox_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_netbox'] }}:{{ '{{' }} osism_netbox_tag {{ '}}' }}"
 
 vault_tag: "{{ versions['vault'] }}"
 vault_image: "{{ '{{' }} docker_registry {{ '}}' }}/{{ images['vault'] }}:{{ '{{' }} vault_tag {{ '}}' }}"
@@ -91,7 +91,7 @@ ceph_ansible_tag: "{{ versions['ceph_ansible'] }}"
 ceph_ansible_tag: "{{ '{{' }} ceph_version|default(manager_version) {{ '}}' }}"
 {% endif -%}
 {% endif -%}
-ceph_ansible_image: "{{ '{{' }} docker_registry_ansible|default('quay.io') {{ '}}' }}/{{ images['ceph_ansible'] }}:{{ '{{' }} ceph_ansible_tag {{ '}}' }}"
+ceph_ansible_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['ceph_ansible'] }}:{{ '{{' }} ceph_ansible_tag {{ '}}' }}"
 
 {% if manager_version == 'latest' -%}
 kolla_ansible_tag: "{{ '{{' }} openstack_version|default('2024.2') {{ '}}' }}"
@@ -102,5 +102,5 @@ kolla_ansible_tag: "{{ versions['kolla_ansible'] }}"
 kolla_ansible_tag: "{{ '{{' }} openstack_version|default(manager_version) {{ '}}' }}"
 {% endif -%}
 {% endif -%}
-kolla_ansible_image: "{{ '{{' }} docker_registry_ansible|default('quay.io') {{ '}}' }}/{{ images['kolla_ansible'] }}:{{ '{{' }} kolla_ansible_tag {{ '}}' }}"
+kolla_ansible_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['kolla_ansible'] }}:{{ '{{' }} kolla_ansible_tag {{ '}}' }}"
 
