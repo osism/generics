@@ -166,6 +166,9 @@ control
 [trove:children]
 control
 
+[watcher:children]
+control
+
 [zookeeper:children]
 control
 

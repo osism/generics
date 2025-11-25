@@ -454,6 +454,17 @@ trove
 [trove-taskmanager:children]
 trove
 
+# watcher
+
+[watcher-api:children]
+watcher
+
+[watcher-applier:children]
+watcher
+
+[watcher-engine:children]
+watcher
+
 # zun
 
 [zun-api:children]

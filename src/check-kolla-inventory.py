@@ -25,7 +25,6 @@ IGNORE = [
     "telegraf",
     "venus",
     "vitrage",
-    "watcher",
 ]
 
 config = ConfigParser(allow_no_value=True)
