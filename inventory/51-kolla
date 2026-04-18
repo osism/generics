@@ -454,6 +454,11 @@ trove
 [trove-taskmanager:children]
 trove
 
+# valkey
+
+[valkey:children]
+control
+
 # watcher
 
 [watcher-api:children]
