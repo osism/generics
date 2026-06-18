@@ -99,6 +99,12 @@
       tox_envlist: check
 
 - job:
+    name: cfg-generics-tox-seed
+    parent: tox
+    vars:
+      tox_envlist: seed
+
+- job:
     name: cfg-generics-container-image-inventory-reconciler-push
     parent: abstract-container-image-inventory-reconciler-push
     secrets:
@@ -120,6 +126,7 @@
     check:
       jobs:
         - cfg-generics-tox-check
+        - cfg-generics-tox-seed
         - cfg-generics-tox-test-latest
         - cfg-generics-tox-test-stable
         - cfg-generics-tox-test-stable-legacy
@@ -130,6 +137,7 @@
     periodic-daily:
       jobs:
         - cfg-generics-tox-check
+        - cfg-generics-tox-seed
         - cfg-generics-tox-test-latest
         - cfg-generics-tox-test-stable
         - cfg-generics-tox-test-stable-legacy
