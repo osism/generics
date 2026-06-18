@@ -29,6 +29,80 @@ fi
 playbook=$1
 shift
 
+# ---------------------------------------------------------------------------
+# Seed-container execution path.
+#
+# SEED_CONTAINER selects how the playbook runs:
+#   auto  (default) run in the osism/seed container when a container engine is
+#                   up; otherwise fall back to the local venv path below
+#   true            force the container (error if the engine command is missing)
+#   false           force the local venv path
+# The image is assembled from SEED_CONTAINER_REGISTRY/IMAGE:TAG; an empty
+# registry drops the leading segment (for a locally-built, unqualified image).
+# ---------------------------------------------------------------------------
+SEED_CONTAINER=${SEED_CONTAINER:-auto}
+CONTAINER_ENGINE=${CONTAINER_ENGINE:-docker}
+
+SEED_CONTAINER_REGISTRY=${SEED_CONTAINER_REGISTRY-registry.osism.tech}
+SEED_CONTAINER_IMAGE=${SEED_CONTAINER_IMAGE:-osism/seed}
+SEED_CONTAINER_TAG=${SEED_CONTAINER_TAG:-latest}
+SEED_CONTAINER_PULL=${SEED_CONTAINER_PULL:-always}
+SEED_CONTAINER_MOUNT_OPTS=${SEED_CONTAINER_MOUNT_OPTS:-}
+
+run_in_container=false
+case "$SEED_CONTAINER" in
+    false)
+        ;;
+    true)
+        if ! command -v "$CONTAINER_ENGINE" >/dev/null 2>&1; then
+            echo >&2 "ERROR: SEED_CONTAINER=true but container engine '$CONTAINER_ENGINE' not found on PATH"
+            exit 1
+        fi
+        run_in_container=true
+        ;;
+    auto)
+        if command -v "$CONTAINER_ENGINE" >/dev/null 2>&1 && "$CONTAINER_ENGINE" info >/dev/null 2>&1; then
+            run_in_container=true
+        fi
+        ;;
+    *)
+        echo >&2 "ERROR: invalid SEED_CONTAINER value '$SEED_CONTAINER' (expected one of: auto, true, false)"
+        exit 1
+        ;;
+esac
+
+if [[ $run_in_container == "true" ]]; then
+    ROOT="$(readlink -f "$RUNDIR/../..")"
+    image_ref="${SEED_CONTAINER_REGISTRY:+$SEED_CONTAINER_REGISTRY/}$SEED_CONTAINER_IMAGE:$SEED_CONTAINER_TAG"
+
+    container_args=(run --rm -i)
+    [[ -t 0 ]] && container_args+=(-t)
+    container_args+=(--pull "$SEED_CONTAINER_PULL")
+    container_args+=(-v "$ROOT:/opt/configuration$SEED_CONTAINER_MOUNT_OPTS")
+
+    # Forward selected Ansible/OSISM variables, but only when set in the
+    # caller's environment. Emitting VAR=value (not a bare VAR) keeps the value
+    # in the engine's argv rather than relying on the engine inheriting our
+    # environment.
+    for var in ANSIBLE_USER ANSIBLE_ASK_PASS ANSIBLE_BECOME_ASK_PASS \
+               ANSIBLE_ASK_VAULT_PASS ANSIBLE_VAULT_PASSWORD_FILE \
+               ANSIBLE_SSH_ARGS MANAGER_VERSION; do
+        if [[ -n "${!var+x}" ]]; then
+            container_args+=(-e "$var=${!var}")
+        fi
+    done
+
+    # Vault default: only when the caller did not set ANSIBLE_VAULT_PASSWORD_FILE
+    # and the configuration repository ships the .vault_pass wrapper.
+    if [[ -z "${ANSIBLE_VAULT_PASSWORD_FILE+x}" && -e "$ROOT/environments/.vault_pass" ]]; then
+        container_args+=(-e "ANSIBLE_VAULT_PASSWORD_FILE=/opt/configuration/environments/.vault_pass")
+    fi
+
+    container_args+=("$image_ref" "$playbook" "$@")
+
+    exec "$CONTAINER_ENGINE" "${container_args[@]}"
+fi
+
 if [[ $INSTALL_ANSIBLE == "true" ]]; then
     if [[ ! -e $VENV_PATH/bin/activate ]]; then
         $VENV_PYTHON_BIN -m venv "$VENV_PATH"
