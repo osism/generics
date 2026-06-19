@@ -10,6 +10,11 @@
 # whether the engine daemon is up. stdin is redirected from /dev/null so
 # `[[ -t 0 ]]` is reliably false (no `-t` in CI).
 
+# The `cond && ok || ko` assertion idiom below is deliberate: `ok` is an
+# assignment that always returns 0, so the `ko` branch runs only when `cond`
+# fails. SC2015's "C may run when A is true" caveat cannot occur here.
+# shellcheck disable=SC2015
+
 set -uo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
