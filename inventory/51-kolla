@@ -250,11 +250,20 @@ neutron
 [neutron-ovn-agent:children]
 compute
 
+[neutron-ovn-maintenance-worker:children]
+control
+
 [neutron-ovn-metadata-agent:children]
 compute
 
 [neutron-ovn-vpn-agent:children]
 network
+
+[neutron-periodic-worker:children]
+control
+
+[neutron-rpc-server:children]
+control
 
 [neutron-server:children]
 control
