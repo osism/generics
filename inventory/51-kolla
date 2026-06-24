@@ -148,6 +148,9 @@ ironic
 [ironic-conductor:children]
 ironic
 
+[ironic-dnsmasq:children]
+ironic
+
 [ironic-http:children]
 ironic
 
