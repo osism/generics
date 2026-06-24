@@ -1,6 +1,6 @@
 ---
 - job:
-    name: cfg-generics-tox-test-stable
+    name: generics-tox-test-stable
     parent: tox
     vars:
       tox_envlist: test
@@ -8,7 +8,7 @@
         MANAGER_VERSION: "9.1.0"
 
 - job:
-    name: cfg-generics-tox-test-stable-legacy
+    name: generics-tox-test-stable-legacy
     parent: tox
     vars:
       tox_envlist: test
@@ -16,7 +16,7 @@
         MANAGER_VERSION: "9.0.0"
 
 - job:
-    name: cfg-generics-tox-test-latest
+    name: generics-tox-test-latest
     parent: tox
     vars:
       tox_envlist: test
@@ -24,13 +24,13 @@
         MANAGER_VERSION: "latest"
 
 - job:
-    name: cfg-generics-tox-check
+    name: generics-tox-check
     parent: tox
     vars:
       tox_envlist: check
 
 - job:
-    name: cfg-generics-tox-seed
+    name: generics-tox-seed
     parent: tox
     vars:
       tox_envlist: seed
@@ -40,22 +40,22 @@
     default-branch: main
     check:
       jobs:
-        - cfg-generics-tox-check
-        - cfg-generics-tox-seed
-        - cfg-generics-tox-test-latest
-        - cfg-generics-tox-test-stable
-        - cfg-generics-tox-test-stable-legacy
+        - generics-tox-check
+        - generics-tox-seed
+        - generics-tox-test-latest
+        - generics-tox-test-stable
+        - generics-tox-test-stable-legacy
         - check-shell-syntax
         - flake8
         - python-black
         - yamllint
     periodic-daily:
       jobs:
-        - cfg-generics-tox-check
-        - cfg-generics-tox-seed
-        - cfg-generics-tox-test-latest
-        - cfg-generics-tox-test-stable
-        - cfg-generics-tox-test-stable-legacy
+        - generics-tox-check
+        - generics-tox-seed
+        - generics-tox-test-latest
+        - generics-tox-test-stable
+        - generics-tox-test-stable-legacy
         - check-shell-syntax
         - flake8
         - python-black
