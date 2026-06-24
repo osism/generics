@@ -30,6 +30,12 @@
       tox_envlist: check
 
 - job:
+    name: generics-tox-check-kolla
+    parent: tox
+    vars:
+      tox_envlist: check-kolla
+
+- job:
     name: generics-tox-seed
     parent: tox
     vars:
@@ -41,6 +47,7 @@
     check:
       jobs:
         - generics-tox-check
+        - generics-tox-check-kolla
         - generics-tox-seed
         - generics-tox-test-latest
         - generics-tox-test-stable
@@ -52,6 +59,7 @@
     periodic-daily:
       jobs:
         - generics-tox-check
+        - generics-tox-check-kolla
         - generics-tox-seed
         - generics-tox-test-latest
         - generics-tox-test-stable
