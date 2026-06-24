@@ -6,30 +6,30 @@ import sys
 
 import requests
 
-# Group name prefixes that exist in the upstream kolla-ansible inventory but
-# that OSISM intentionally does not mirror. A group belongs here only if OSISM
-# deliberately never deploys the corresponding service; otherwise the group
-# must be defined in inventory/ instead (see the message printed on drift).
-IGNORE = [
-    "baremetal",
-    "blazar",
-    "collectd",
+# kolla-ansible inventory groups that exist upstream but that this inventory
+# does not mirror, by design. There are two kinds, matched differently.
+#
+# Host-role groups: the physical node groups (control, compute, ...) that
+# services map onto. OSISM populates these from the operator's environment
+# inventory, not from 50-/51-kolla, so upstream's definitions of them are not
+# drift. Matched by exact name.
+IGNORE_ROLE_GROUPS = [
+    "baremetal:children",
     "compute",
     "control",
-    "cyborg",
     "deployment",
-    "freezer",
-    "masakari",
     "monitoring",
-    "murano",
     "network",
-    "sahara",
-    "solum",
     "storage",
+]
+
+# Services OSISM deliberately does not deploy; the whole group family is absent
+# on purpose. Matched by name prefix so newly added sub-groups stay covered.
+IGNORE_NOT_DEPLOYED = [
+    "collectd",
+    "cyborg",
     "tacker",
     "telegraf",
-    "venus",
-    "vitrage",
 ]
 
 # kolla-ansible release tracked by this check. Pin to the stable branch OSISM
@@ -59,7 +59,8 @@ def missing_sections(local, upstream_config):
         section
         for section in upstream_config.sections()
         if section not in local
-        and not any(section.startswith(prefix) for prefix in IGNORE)
+        and section not in IGNORE_ROLE_GROUPS
+        and not any(section.startswith(p) for p in IGNORE_NOT_DEPLOYED)
     ]
 
 
@@ -99,8 +100,8 @@ def main():
         "    the same host group(s) kolla-ansible uses upstream (e.g. control,\n"
         "    compute, network, storage), keeping the section alphabetically\n"
         "    sorted.\n"
-        "  * OSISM intentionally does not deploy it -> add the group's name\n"
-        "    prefix to the IGNORE list in src/check-kolla-inventory.py.\n"
+        "  * OSISM intentionally does not deploy it -> add the service's name\n"
+        "    prefix to IGNORE_NOT_DEPLOYED in src/check-kolla-inventory.py.\n"
         "\n"
         "Leaving a required group undefined makes Ansible abort haproxy-config\n"
         "templating with \"'dict object' has no attribute '<group>'\".",
