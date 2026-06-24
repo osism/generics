@@ -64,6 +64,26 @@ def missing_sections(local, upstream_config):
     ]
 
 
+def stale_ignores(local, upstream_config):
+    """IGNORE entries that no longer suppress any unshipped upstream group.
+
+    An entry goes stale when the service is now shipped in the inventory, or
+    when kolla-ansible removed it from the tracked release. Besides being dead
+    weight, a stale prefix can silently hide a future upstream group that OSISM
+    actually needs -- exactly the drift this check exists to catch -- so it is
+    treated as an error.
+    """
+    sections = upstream_config.sections()
+    stale = []
+    for name in IGNORE_ROLE_GROUPS:
+        if name not in sections or name in local:
+            stale.append(name)
+    for prefix in IGNORE_NOT_DEPLOYED:
+        if not any(s.startswith(prefix) and s not in local for s in sections):
+            stale.append(prefix)
+    return stale
+
+
 def main():
     local = local_sections()
 
@@ -78,6 +98,24 @@ def main():
 
     upstream_config = ConfigParser(allow_no_value=True)
     upstream_config.read_file(io.StringIO(response.text))
+
+    stale = stale_ignores(local, upstream_config)
+    if stale:
+        print(
+            "ERROR: these IGNORE entries no longer suppress any upstream group "
+            "absent\nfrom "
+            + " and ".join(LOCAL_INVENTORY_FILES)
+            + ": "
+            + ", ".join(stale)
+            + "\n\n"
+            "They are stale -- the service is now shipped in the inventory, or "
+            "kolla-\nansible removed it from "
+            + KOLLA_BRANCH
+            + ". Remove them from IGNORE_ROLE_GROUPS\n"
+            "/ IGNORE_NOT_DEPLOYED in src/check-kolla-inventory.py.",
+            file=sys.stderr,
+        )
+        return 3
 
     missing = missing_sections(local, upstream_config)
     if not missing:
