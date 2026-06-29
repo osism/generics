@@ -41,12 +41,19 @@
     vars:
       tox_envlist: kolla-drift
 
+- job:
+    name: generics-tox-kolla-drift-test
+    parent: tox
+    vars:
+      tox_envlist: kolla-drift-test
+
 - project:
     merge-mode: squash-merge
     default-branch: main
     check:
       jobs:
         - generics-tox-check
+        - generics-tox-kolla-drift-test
         - generics-tox-seed
         - generics-tox-test-latest
         - generics-tox-test-stable
@@ -58,8 +65,9 @@
     periodic-daily:
       jobs:
         - generics-tox-check
-        - generics-tox-seed
         - generics-tox-kolla-drift
+        - generics-tox-kolla-drift-test
+        - generics-tox-seed
         - generics-tox-test-latest
         - generics-tox-test-stable
         - generics-tox-test-stable-legacy
