@@ -20,3 +20,4 @@ plugins:
   kolla_secrets_orphan:         {enabled: true}
   kolla_enablement_build:       {enabled: true}
   kolla_version_chain_upstream: {enabled: true}
+  kolla_version_chain_inner:    {enabled: true}

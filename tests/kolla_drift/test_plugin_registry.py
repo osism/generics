@@ -43,6 +43,10 @@ def test_kolla_upstream_plugin_registered():
     assert "kolla_version_chain_upstream" in [p.NAME for p in PLUGINS]
 
 
+def test_kolla_inner_plugin_registered():
+    assert "kolla_version_chain_inner" in [p.NAME for p in PLUGINS]
+
+
 def test_default_config_enables_every_registered_plugin():
     # The driver only runs a plugin that is present and enabled in the config, so
     # a plugin registered in PLUGINS but missing from the default config would
