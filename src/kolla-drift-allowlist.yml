@@ -1,3 +1,8 @@
 # Known-intentional exceptions. Each entry needs a non-empty `reason`.
 # An entry that suppresses no real drift is reported as stale (a hard error).
-allow: []
+allow:
+  # --- kolla_enablement_orphan ---
+  # OSISM-invented enable flags with no upstream counterpart by design (not a
+  # removed-upstream service). Truthy, so they surface in the truthy-only scope.
+  - {plugin: kolla_enablement_orphan, image: common,           reason: "OSISM-invented flag; no upstream counterpart by design"}
+  - {plugin: kolla_enablement_orphan, image: kolla_operations, reason: "OSISM-invented flag; no upstream counterpart by design"}

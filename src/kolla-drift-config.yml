@@ -14,4 +14,5 @@ sources:
 
 release_version: latest
 
-plugins: {}
+plugins:
+  kolla_enablement_orphan:      {enabled: true}

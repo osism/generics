@@ -23,6 +23,10 @@ def test_every_plugin_has_summary_and_remediation():
         assert isinstance(p.REMEDIATION, str) and p.REMEDIATION.strip(), p.NAME
 
 
+def test_kolla_enablement_orphan_plugin_registered():
+    assert "kolla_enablement_orphan" in [p.NAME for p in PLUGINS]
+
+
 def test_default_config_enables_every_registered_plugin():
     # The driver only runs a plugin that is present and enabled in the config, so
     # a plugin registered in PLUGINS but missing from the default config would
