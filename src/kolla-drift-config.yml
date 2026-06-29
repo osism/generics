@@ -18,3 +18,4 @@ plugins:
   kolla_enablement_orphan:      {enabled: true}
   kolla_orphan_config:          {enabled: true}
   kolla_secrets_orphan:         {enabled: true}
+  kolla_enablement_build:       {enabled: true}

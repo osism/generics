@@ -35,6 +35,10 @@ def test_kolla_secrets_orphan_plugin_registered():
     assert "kolla_secrets_orphan" in [p.NAME for p in PLUGINS]
 
 
+def test_kolla_enablement_build_plugin_registered():
+    assert "kolla_enablement_build" in [p.NAME for p in PLUGINS]
+
+
 def test_default_config_enables_every_registered_plugin():
     # The driver only runs a plugin that is present and enabled in the config, so
     # a plugin registered in PLUGINS but missing from the default config would
