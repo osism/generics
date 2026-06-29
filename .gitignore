@@ -1,3 +1,4 @@
 release
+!tests/kolla_drift/fixtures/release/
 .venv
 venv
