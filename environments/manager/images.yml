@@ -16,9 +16,6 @@ netbox_image: "{{ '{{' }} docker_registry_netbox|default('registry.osism.tech') 
 netbox_redis_tag: "{{ versions['redis'] }}"
 netbox_redis_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['redis'] }}:{{ '{{' }} netbox_redis_tag {{ '}}' }}"
 
-nginx_tag: "{{ versions['nginx'] }}"
-nginx_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['nginx'] }}:{{ '{{' }} nginx_tag {{ '}}' }}"
-
 pgautoupgrade_tag: "{{ versions['pgautoupgrade'] }}"
 pgautoupgrade_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['pgautoupgrade'] }}:{{ '{{' }} pgautoupgrade_tag {{ '}}' }}"
 
@@ -30,9 +27,6 @@ postgres_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerh
 
 manager_redis_tag: "{{ versions['redis'] }}"
 manager_redis_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['redis'] }}:{{ '{{' }} manager_redis_tag {{ '}}' }}"
-
-registry_tag: "{{ versions['registry'] }}"
-registry_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['registry'] }}:{{ '{{' }} registry_tag {{ '}}' }}"
 
 {% if versions['osism_ansible'] == 'latest' -%}
 osism_ansible_tag: "{{ '{{' }} osism_ansible_version|default('latest') {{ '}}' }}"
@@ -68,13 +62,6 @@ osism_frontend_tag: "{{ '{{' }} osism_version|default('latest') {{ '}}' }}"
 osism_frontend_tag: "{{ versions['osism'] }}"
 {% endif -%}
 osism_frontend_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_frontend'] }}:{{ '{{' }} osism_frontend_tag {{ '}}' }}"
-
-{% if versions['osism'] == 'latest' -%}
-osism_netbox_tag: "{{ '{{' }} osism_version|default('latest') {{ '}}' }}"
-{% else -%}
-osism_netbox_tag: "{{ versions['osism'] }}"
-{% endif -%}
-osism_netbox_image: "{{ '{{' }} docker_registry_ansible|default('registry.osism.tech') {{ '}}' }}/{{ images['osism_netbox'] }}:{{ '{{' }} osism_netbox_tag {{ '}}' }}"
 
 vault_tag: "{{ versions['vault'] }}"
 vault_image: "{{ '{{' }} docker_registry|default('registry.osism.tech/dockerhub') {{ '}}' }}/{{ images['vault'] }}:{{ '{{' }} vault_tag {{ '}}' }}"
