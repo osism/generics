@@ -19,8 +19,5 @@ monitoring
 [scaphandre:children]
 generic
 
-[thanos_sidecar:children]
-prometheus
-
 [zabbix_agent:children]
 generic
