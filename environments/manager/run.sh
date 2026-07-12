@@ -109,9 +109,9 @@ if [[ $INSTALL_ANSIBLE == "true" ]]; then
 
         # shellcheck source=/dev/null
         source "$VENV_PATH/bin/activate"
-        pip3 install uv
-        uv pip install -r requirements.txt
-        uv pip install "ansible==$ANSIBLE_VERSION"
+        pip3 install uv || exit $?
+        uv pip install -r requirements.txt || exit $?
+        uv pip install "ansible==$ANSIBLE_VERSION" || exit $?
 
     else
 
