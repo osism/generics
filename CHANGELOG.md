@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20260721.0] - 2026-07-21
+
+### Removed
+- Remove orphaned nginx, registry, and osism_netbox image emits from the manager environment (osism/cfg-generics#606)
+- Remove the thanos_sidecar inventory group following role retirement (osism/cfg-generics#607)
+
+## [v0.20260712.0] - 2026-07-12
+
+### Added
+- Add a check-kolla-inventory tox environment and a gating Zuul job that fails CI when the kolla-ansible inventory groups drift from the tracked upstream release, including a guard against stale IGNORE entries (osism/cfg-generics#602)
+
+### Fixed
+- Fail fast in run.sh when uv/pip package installation fails, instead of continuing with a broken venv (osism/cfg-generics#608)
+
+### Removed
+- Remove unused rook inventory groups (rook-mds, rook-mgr, rook-mon, rook-osd, rook-rgw) (osism/cfg-generics#605)
+
+## [v0.20260627.0] - 2026-06-27
+
+### Added
+- Add SEED_CONTAINER support to run.sh to run playbooks inside the osism/seed container, with command-assembly tests gating CI (osism/cfg-generics#596)
+
+### Changed
+- Rename cfg-generics-tox Zuul jobs to generics-tox to match the current project name (osism/cfg-generics#600)
+
+### Fixed
+- Add neutron 2025.2 service groups (neutron-rpc-server, neutron-periodic-worker, neutron-ovn-maintenance-worker) to prevent haproxy-config templating errors (osism/cfg-generics#599)
+- Add ironic-dnsmasq inventory group to prevent templating errors on ironic-enabled deployments (osism/cfg-generics#601)
+- Fix project-board automation for fork pull requests by switching to pull_request_target and scoping the forwarded secret (osism/cfg-generics#603)
+
+### Removed
+- Remove dead image-push post jobs and the unused SECRET_CFG_GENERICS secret left over from the repo rename (osism/cfg-generics#600)
+
+### Dependencies
+- pynetbox 7.7.0 → 7.8.0 (osism/cfg-generics#597)
+- requests 2.33.1 → 2.34.2 (osism/cfg-generics#594)
+- paramiko 4.0.0 → 5.0.0 (osism/cfg-generics#598)
+
+## [v0.20260615.0] - 2026-06-15
+
+### Added
+- Automatically add all opened issues and PRs to project board (osism/cfg-generics#591)
+
+### Dependencies
+- packaging 26.1 → 26.2 (osism/cfg-generics#589)
+- pynetbox 7.6.1 → 7.7.0 (osism/cfg-generics#592)
+
+## [v0.20260418.0] - 2026-04-18
+
+### Added
+- Add CHANGELOG.md file (osism/cfg-generics#582)
+- Valkey group in Kolla inventory (osism/cfg-generics#588)
+
+### Dependencies
+- ansible 11.12.0 → 11.13.0 (osism/cfg-generics#585)
+- ansible-pylibssh 1.3.0 → 1.4.0 (osism/cfg-generics#581)
+- packaging 26.0 → 26.1 (osism/cfg-generics#587)
+- requests 2.32.5 → 2.33.1 [security] (osism/cfg-generics#584, osism/cfg-generics#583)
+
 ## [v0.20260319.0] - 2026-03-19
 
 ### Dependencies
