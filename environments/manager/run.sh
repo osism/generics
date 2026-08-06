@@ -154,8 +154,14 @@ if [[ "$playbook" == "noop" ]]; then
     exit 0
 fi
 
+# Vault password file. environments/.vault_pass is the documented location and the
+# one the seed-container path above picks up; seen from this directory that file is
+# ../.vault_pass. The local .vault_pass stays the first candidate so configuration
+# repositories that keep it next to this script are unaffected.
 if [[ -e .vault_pass ]]; then
     VAULT=.vault_pass
+elif [[ -e ../.vault_pass ]]; then
+    VAULT=../.vault_pass
 elif [[ \
       $(head -1 secrets.yml | grep -v -q \$ANSIBLE_VAULT || echo 1) == 1 || \
       $(head -1 ../secrets.yml | grep -v -q \$ANSIBLE_VAULT || echo 1) == 1 || \
