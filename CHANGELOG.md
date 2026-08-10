@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20260808.0] - 2026-08-08
+
+### Fixed
+- Vault password file lookup in run.sh now also checks environments/.vault_pass, matching the seed-container path so both execution paths use the same location (osism/cfg-generics#613)
+
+### Dependencies
+- ansible 11.13.0 → 12.3.0 (osism/cfg-generics#575, osism/cfg-generics#611)
+- packaging 26.2 → 26.3 (osism/cfg-generics#614)
+
 ## [v0.20260721.0] - 2026-07-21
 
 ### Removed
