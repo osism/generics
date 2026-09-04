@@ -32,6 +32,11 @@
 - job:
     name: generics-tox-check-kolla
     parent: tox
+    # The check itself lives in osism/release. Zuul checks it out alongside this
+    # repo, and speculatively merges any in-flight change to it, so a detector
+    # change is tested against a real inventory before it lands.
+    required-projects:
+      - osism/release
     vars:
       tox_envlist: check-kolla
 
