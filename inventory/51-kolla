@@ -57,11 +57,23 @@ ceilometer
 [cinder-api:children]
 cinder
 
+[cinder-backup-lvm:children]
+storage
+
+[cinder-backup-multiple:children]
+storage
+
 [cinder-backup:children]
 storage
 
 [cinder-scheduler:children]
 cinder
+
+[cinder-volume-lvm:children]
+storage
+
+[cinder-volume-multiple:children]
+storage
 
 [cinder-volume:children]
 storage
@@ -402,6 +414,13 @@ generic
 [prometheus-openstack-exporter:children]
 monitoring
 
+[prometheus-openstack-network-exporter:children]
+compute
+network
+
+[prometheus-valkey-exporter:children]
+valkey
+
 # senlin
 
 [senlin-api:children]
@@ -516,6 +535,12 @@ generic
 
 [kolla-toolbox:children]
 common
+
+[kolla_logs:children]
+kolla-logs
+
+[kolla_toolbox:children]
+kolla-toolbox
 
 [multipathd:children]
 compute
