@@ -3,6 +3,7 @@ import re
 
 from packaging.version import Version
 import requests
+from requests.adapters import HTTPAdapter, Retry
 import yaml
 
 # get environment parameters
@@ -22,9 +23,35 @@ VERSIONS_URL = os.environ.get(
     % MANAGER_VERSION,  # noqa E501
 )
 
+
+def fetch_yaml(url):
+    """Fetch and parse a YAML file, retrying transient failures.
+
+    Every config build fetches these URLs from raw.githubusercontent.com
+    unauthenticated, and its per-IP rate limit is easy to trip -- a handful of
+    builds in an afternoon will do it. The limit clears on its own, so retry
+    rather than fail; raise_on_status is off so an exhausted retry surfaces as
+    the response's own status and URL, the same as a status that is not
+    retried at all.
+    """
+    retry = Retry(
+        total=4,
+        backoff_factor=1.5,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["GET"],
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    with requests.Session() as session:
+        session.mount("https://", adapter)
+        session.mount("http://", adapter)
+        r = session.get(url, timeout=30)
+    r.raise_for_status()
+    return yaml.full_load(r.text)
+
+
 # load versions files from release repository
-r = requests.get(VERSIONS_URL)
-versions = yaml.full_load(r.text)
+versions = fetch_yaml(VERSIONS_URL)
 
 commons_version = versions["ansible_collections"]["osism.commons"]
 docker_version = versions["osism_projects"]["docker"]
