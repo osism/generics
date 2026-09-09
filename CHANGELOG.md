@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20260909.0] - 2026-09-09
+
+### Added
+- Add the kolla-ansible 2026.1 inventory groups, including the kolla_logs/kolla_toolbox aliases and the cinder-backup-lvm, cinder-backup-multiple, cinder-volume-lvm, cinder-volume-multiple, prometheus-openstack-network-exporter and prometheus-valkey-exporter groups (osism/cfg-generics#616)
+
+### Changed
+- Run the kolla inventory drift check using the detector from osism/release instead of the local script (osism/cfg-generics#617)
+
 ## [v0.20260808.0] - 2026-08-08
 
 ### Fixed
