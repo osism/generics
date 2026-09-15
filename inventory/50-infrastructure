@@ -73,6 +73,9 @@ manager
 [wazuh_agent:children]
 generic
 
+[wazuh_proxy:children]
+manager
+
 [wireguard:children]
 manager
 
