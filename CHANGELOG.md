@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20260929.0] - 2026-09-29
+
+### Added
+- Add inventory group for wazuh-proxy (osism/cfg-generics#620)
+
+### Fixed
+- Guard and retry release repo fetches to survive transient GitHub rate limits (osism/cfg-generics#618)
+
+### Removed
+- Remove unused render-ansible-requirements script (osism/cfg-generics#618)
+
+### Dependencies
+- debops 3.3.0 → 3.3.1 (osism/cfg-generics#621)
+
 ## [v0.20260909.0] - 2026-09-09
 
 ### Added
