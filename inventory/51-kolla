@@ -520,7 +520,7 @@ zun
 # NOTE: Alphabetical sorting only within this group and not within the whole file.
 
 [cron:children]
-common
+generic
 
 [fluentd:children]
 generic
