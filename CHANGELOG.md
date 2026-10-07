@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20261007.0] - 2026-10-07
+
+### Fixed
+- Deploy cron wherever fluentd runs so log rotation also applies to generic-only hosts like dedicated loadbalancers, preventing kolla log files from growing unbounded (osism/cfg-generics#625)
+
+### Dependencies
+- debops 3.3.1 → 3.3.2 (osism/cfg-generics#623)
+
 ## [v0.20260929.0] - 2026-09-29
 
 ### Added
