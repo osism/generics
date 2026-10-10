@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20261010.0] - 2026-10-10
+
+### Removed
+- Drop unused adminer and phpmyadmin image/tag entries from manager images (osism/generics#624)
+
 ## [v0.20261007.0] - 2026-10-07
 
 ### Fixed
