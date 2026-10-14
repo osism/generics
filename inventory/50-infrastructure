@@ -46,9 +46,6 @@ manager
 [netbox:children]
 manager
 
-[nexus:children]
-manager
-
 [openstackclient:children]
 manager
 
