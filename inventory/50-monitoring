@@ -7,6 +7,9 @@ manager
 [kepler:children]
 generic
 
+[ipmi_exporter:children]
+generic
+
 [netdata:children]
 generic
 
