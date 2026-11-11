@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file was started on September 03, 2022. Changes prior to this date are not included in the CHANGELOG.
 
+## [v0.20261111.0] - 2026-11-11
+
+### Changed
+
+- Update dependency paramiko to v5.1.0 (osism/generics#631)
+
 ## [v0.20261019.0] - 2026-10-19
 
 ### Removed
