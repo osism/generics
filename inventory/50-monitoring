@@ -19,5 +19,8 @@ monitoring
 [scaphandre:children]
 generic
 
+[snmp_exporter:children]
+generic
+
 [zabbix_agent:children]
 generic
